@@ -2,187 +2,541 @@
   {
     "id": "1",
     "name": "Cat-Cow Stretch",
-    "description": "A gentle flowing exercise to warm up the spine and relieve tension in the lower back.",
-    "category": "stretching",
+    "description": "Gentle spinal articulation for mobility and nerve gliding. Perfect warm-up for L3/L4, L5/S1 polyradiculopathy.",
+    "category": "mobility",
     "type": "duration",
-    "duration": 60,
-    "targetMuscles": ["Lower back", "Core"],
+    "duration": 120,
+    "sets": 1,
+    "restBetweenSets": 0,
+    "targetMuscles": ["Spine", "Core"],
+    "difficulty": "beginner",
+    "equipment": "none",
+    "imageUrl": "https://images.unsplash.com/photo-1599901860904-17e6ed7083a0?w=400",
     "instructions": [
-      "Start on your hands and knees in a tabletop position",
-      "Inhale and arch your back, dropping your belly (Cow pose)",
-      "Exhale and round your spine, tucking your chin (Cat pose)",
-      "Continue flowing between these positions"
+      "Start on hands and knees in tabletop position",
+      "Hands under shoulders, knees under hips",
+      "Inhale: arch back, lift chest and tailbone (Cow)",
+      "Exhale: round spine, tuck chin and tailbone (Cat)",
+      "Flow smoothly for 2 minutes"
     ],
-    "tips": [
-      "Move slowly and smoothly with your breath",
-      "Keep movements gentle and controlled"
-    ],
-    "warnings": [
-      "Stop if you feel sharp pain",
-      "Avoid if you have recent back injury"
-    ]
+    "formCues": ["Slow controlled movements", "Deep breathing", "No pain"],
+    "contraindications": ["Acute back pain"],
+    "modifications": {
+      "easier": "Smaller range of motion",
+      "harder": "Hold each position 3 seconds"
+    }
   },
   {
     "id": "2",
-    "name": "Pelvic Tilt",
-    "description": "Strengthens the lower back and core muscles while improving posture.",
-    "category": "strengthening",
+    "name": "Bird Dog",
+    "description": "Core stabilization exercise that strengthens spine without flexion. Essential for spinal stability.",
+    "category": "core",
     "type": "reps",
     "reps": 10,
-    "targetMuscles": ["Lower back", "Abdominals", "Glutes"],
+    "sets": 3,
+    "restBetweenSets": 30,
+    "targetMuscles": ["Core", "Lower back", "Glutes", "Shoulders"],
+    "difficulty": "beginner",
+    "equipment": "none",
+    "imageUrl": "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=400",
     "instructions": [
-      "Lie on your back with knees bent and feet flat on the floor",
-      "Tighten your abdominal muscles",
-      "Flatten your lower back against the floor",
-      "Hold for 5 seconds, then relax"
+      "Start on hands and knees",
+      "Extend right arm forward and left leg back simultaneously",
+      "Keep back flat and core tight",
+      "Hold 2-3 seconds",
+      "Return to start, switch sides"
     ],
-    "tips": [
-      "Focus on using your core muscles",
-      "Breathe normally throughout the exercise"
-    ],
-    "warnings": [
-      "Start with small movements",
-      "Do not hold your breath"
-    ]
+    "formCues": ["Keep hips level", "Don't arch back", "Engage core"],
+    "contraindications": ["Severe balance issues"],
+    "modifications": {
+      "easier": "Extend only arm OR leg, not both",
+      "harder": "Add 2-second pause at top"
+    }
   },
   {
     "id": "3",
-    "name": "Bird Dog",
-    "description": "Improves balance and strengthens the core and lower back stabilizer muscles.",
-    "category": "strengthening",
+    "name": "Dead Bug",
+    "description": "Anti-extension core exercise perfect for protecting the spine during movement.",
+    "category": "core",
     "type": "reps",
-    "reps": 10,
-    "targetMuscles": ["Lower back", "Core", "Glutes", "Shoulders"],
+    "reps": 12,
+    "sets": 3,
+    "restBetweenSets": 30,
+    "targetMuscles": ["Deep core", "Hip flexors"],
+    "difficulty": "beginner",
+    "equipment": "none",
+    "imageUrl": "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400",
     "instructions": [
-      "Start on your hands and knees",
-      "Extend your right arm forward and left leg back simultaneously",
-      "Hold for 3-5 seconds keeping your core tight",
-      "Return to start and switch sides"
+      "Lie on back, arms straight up",
+      "Lift legs to 90 degrees (tabletop)",
+      "Lower right arm overhead while extending left leg",
+      "Keep lower back pressed to floor",
+      "Return to start, switch sides"
     ],
-    "tips": [
-      "Keep your hips level",
-      "Move slowly and with control",
-      "Focus on keeping your back straight"
-    ],
-    "warnings": [
-      "Stop if you feel dizzy",
-      "Avoid arching your back"
-    ]
+    "formCues": ["Press lower back to floor", "Move slowly", "Breathe continuously"],
+    "contraindications": ["Recent abdominal surgery"],
+    "modifications": {
+      "easier": "Keep knees bent throughout",
+      "harder": "Slower tempo (4 seconds down)"
+    }
   },
   {
     "id": "4",
-    "name": "Child's Pose",
-    "description": "A restorative stretch that gently elongates the spine and relieves tension.",
-    "category": "flexibility",
-    "type": "duration",
-    "duration": 30,
-    "targetMuscles": ["Lower back", "Hips", "Thighs"],
+    "name": "Wall Push-ups",
+    "description": "Upper body strength without spinal loading. Safe way to maintain chest and arm strength.",
+    "category": "upper_body",
+    "type": "reps",
+    "reps": 15,
+    "sets": 3,
+    "restBetweenSets": 45,
+    "targetMuscles": ["Chest", "Triceps", "Shoulders"],
+    "difficulty": "beginner",
+    "equipment": "wall",
+    "imageUrl": "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=400",
     "instructions": [
-      "Kneel on the floor with your big toes touching",
-      "Sit back on your heels",
-      "Extend your arms forward and lower your chest",
-      "Rest your forehead on the floor"
+      "Stand arm's length from wall",
+      "Place hands on wall at shoulder height",
+      "Keep body straight",
+      "Bend elbows to lean toward wall",
+      "Push back to start"
     ],
-    "tips": [
-      "Breathe deeply and relax into the stretch",
-      "Place a pillow under your forehead if needed"
-    ],
-    "warnings": [
-      "Avoid if you have knee problems",
-      "Stop if you feel pain in your knees or hips"
-    ]
+    "formCues": ["Keep core tight", "Don't let hips sag", "Controlled movement"],
+    "contraindications": ["Shoulder injury"],
+    "modifications": {
+      "easier": "Stand closer to wall",
+      "harder": "Move feet further from wall"
+    }
   },
   {
     "id": "5",
-    "name": "Knee to Chest",
-    "description": "Stretches the lower back and helps relieve pressure on spinal nerves.",
-    "category": "stretching",
-    "type": "reps",
-    "reps": 10,
-    "targetMuscles": ["Lower back", "Glutes", "Hamstrings"],
+    "name": "Plank (Modified)",
+    "description": "Isometric core strengthening. Crucial for spinal stability during daily activities.",
+    "category": "core",
+    "type": "duration",
+    "duration": 30,
+    "sets": 3,
+    "restBetweenSets": 45,
+    "targetMuscles": ["Full core", "Shoulders"],
+    "difficulty": "intermediate",
+    "equipment": "none",
+    "imageUrl": "https://images.unsplash.com/photo-1571019613576-2b22c76fd955?w=400",
     "instructions": [
-      "Lie on your back with knees bent",
-      "Bring one knee toward your chest",
-      "Hold for 5 seconds",
-      "Return to start and repeat with the other leg"
+      "Start on forearms and knees or toes",
+      "Keep body in straight line",
+      "Don't let hips sag or pike up",
+      "Hold for 20-30 seconds",
+      "Rest and repeat"
     ],
-    "tips": [
-      "Pull gently, don't force the stretch",
-      "Keep your back flat on the floor"
-    ],
-    "warnings": [
-      "Stop if you feel pain radiating down your leg",
-      "Avoid if you have hip problems"
-    ]
+    "formCues": ["Squeeze glutes", "Breathe normally", "Keep neck neutral"],
+    "contraindications": ["Shoulder problems", "High blood pressure"],
+    "modifications": {
+      "easier": "Plank on knees",
+      "harder": "Full plank on toes"
+    }
   },
   {
     "id": "6",
-    "name": "Standing Back Extension",
-    "description": "Strengthens the lower back muscles and improves posture.",
-    "category": "posture",
-    "type": "reps",
-    "reps": 10,
-    "targetMuscles": ["Lower back", "Glutes"],
+    "name": "Side Plank",
+    "description": "Lateral core stability essential for preventing spine rotation injuries.",
+    "category": "core",
+    "type": "duration",
+    "duration": 20,
+    "sets": 2,
+    "restBetweenSets": 30,
+    "targetMuscles": ["Obliques", "Hip stabilizers"],
+    "difficulty": "intermediate",
+    "equipment": "none",
+    "imageUrl": "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400",
     "instructions": [
-      "Stand up straight with your feet shoulder-width apart",
-      "Place your hands on your lower back",
-      "Gently arch backward, looking up",
-      "Hold for 2-3 seconds, then return to upright"
+      "Lie on side, forearm on ground",
+      "Stack feet or stagger them",
+      "Lift hips off ground",
+      "Keep body in straight line",
+      "Hold 15-20 seconds each side"
     ],
-    "tips": [
-      "Keep the movement gentle and controlled",
-      "Support your lower back with your hands"
-    ],
-    "warnings": [
-      "Stop if you feel sharp pain",
-      "Don't overextend if you have spinal stenosis"
-    ]
+    "formCues": ["Don't let hips drop", "Keep shoulders stacked", "Engage obliques"],
+    "contraindications": ["Shoulder injury"],
+    "modifications": {
+      "easier": "Side plank on knees",
+      "harder": "Lift top leg"
+    }
   },
   {
     "id": "7",
-    "name": "Seated Spinal Twist",
-    "description": "Improves spinal mobility and relieves tension in the back.",
-    "category": "flexibility",
-    "type": "duration",
-    "duration": 30,
-    "targetMuscles": ["Lower back", "Obliques", "Hips"],
+    "name": "Scapular Wall Slides",
+    "description": "Upper back strengthening for posture correction. Counteracts desk work.",
+    "category": "upper_body",
+    "type": "reps",
+    "reps": 12,
+    "sets": 3,
+    "restBetweenSets": 30,
+    "targetMuscles": ["Upper back", "Shoulders"],
+    "difficulty": "beginner",
+    "equipment": "wall",
+    "imageUrl": "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=400",
     "instructions": [
-      "Sit on the floor with legs extended",
-      "Bend your right knee and place foot over left leg",
-      "Twist to the right, placing left elbow outside right knee",
-      "Hold, then repeat on the other side"
+      "Stand with back against wall",
+      "Bend elbows at 90 degrees",
+      "Press arms against wall",
+      "Slide arms up overhead slowly",
+      "Return to start with control"
     ],
-    "tips": [
-      "Sit up tall throughout the stretch",
-      "Breathe deeply and twist a little deeper with each exhale"
-    ],
-    "warnings": [
-      "Move gently, don't force the twist",
-      "Avoid if you have disc herniation"
-    ]
+    "formCues": ["Keep arms touching wall", "Don't arch lower back", "Squeeze shoulder blades"],
+    "contraindications": ["Shoulder impingement"],
+    "modifications": {
+      "easier": "Smaller range of motion",
+      "harder": "Add resistance band"
+    }
   },
   {
     "id": "8",
-    "name": "Bridge Exercise",
-    "description": "Strengthens the glutes, hamstrings, and lower back muscles.",
+    "name": "Glute Bridges",
+    "description": "Hip extension and glute activation. Takes pressure off lower back during bending.",
+    "category": "lower_body",
+    "type": "reps",
+    "reps": 15,
+    "sets": 3,
+    "restBetweenSets": 30,
+    "targetMuscles": ["Glutes", "Hamstrings", "Core"],
+    "difficulty": "beginner",
+    "equipment": "none",
+    "imageUrl": "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400",
+    "instructions": [
+      "Lie on back, knees bent, feet flat",
+      "Squeeze glutes and lift hips",
+      "Form straight line from knees to shoulders",
+      "Hold 2 seconds at top",
+      "Lower with control"
+    ],
+    "formCues": ["Squeeze glutes hard", "Don't over-arch back", "Push through heels"],
+    "contraindications": ["Hip pain"],
+    "modifications": {
+      "easier": "Shorter range of motion",
+      "harder": "Single-leg bridge"
+    }
+  },
+  {
+    "id": "9",
+    "name": "Chest Stretch (Doorway)",
+    "description": "Opens chest and shoulders. Essential for posture and breathing.",
+    "category": "flexibility",
+    "type": "duration",
+    "duration": 120,
+    "sets": 1,
+    "restBetweenSets": 0,
+    "targetMuscles": ["Chest", "Shoulders"],
+    "difficulty": "beginner",
+    "equipment": "doorway",
+    "imageUrl": "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400",
+    "instructions": [
+      "Stand in doorway",
+      "Place forearms on door frame",
+      "Step forward gently",
+      "Feel stretch across chest",
+      "Hold 2 minutes, breathe deeply"
+    ],
+    "formCues": ["Don't force stretch", "Keep core engaged", "Shoulders down"],
+    "contraindications": ["Shoulder instability"],
+    "modifications": {
+      "easier": "Less forward lean",
+      "harder": "Vary arm height"
+    }
+  },
+  {
+    "id": "10",
+    "name": "Child's Pose",
+    "description": "Gentle spinal decompression and relaxation. Perfect cool-down.",
+    "category": "flexibility",
+    "type": "duration",
+    "duration": 120,
+    "sets": 1,
+    "restBetweenSets": 0,
+    "targetMuscles": ["Lower back", "Hips", "Shoulders"],
+    "difficulty": "beginner",
+    "equipment": "none",
+    "imageUrl": "https://images.unsplash.com/photo-1599901860904-17e6ed7083a0?w=400",
+    "instructions": [
+      "Kneel on floor, big toes touching",
+      "Sit back toward heels",
+      "Extend arms forward",
+      "Lower chest and forehead to floor",
+      "Breathe and relax for 2 minutes"
+    ],
+    "formCues": ["Relax completely", "Deep breathing", "Let gravity work"],
+    "contraindications": ["Knee problems"],
+    "modifications": {
+      "easier": "Place pillow under forehead",
+      "harder": "Walk hands to one side for side stretch"
+    }
+  },
+  {
+    "id": "11",
+    "name": "Pelvic Tilts",
+    "description": "Lumbar mobility and control. Reduces back pain from sitting.",
+    "category": "mobility",
+    "type": "duration",
+    "duration": 120,
+    "sets": 1,
+    "restBetweenSets": 0,
+    "targetMuscles": ["Lower back", "Abdominals"],
+    "difficulty": "beginner",
+    "equipment": "none",
+    "imageUrl": "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400",
+    "instructions": [
+      "Lie on back, knees bent",
+      "Tilt pelvis to flatten lower back to floor",
+      "Then tilt opposite way to arch back slightly",
+      "Rock back and forth slowly",
+      "Continue for 2 minutes"
+    ],
+    "formCues": ["Gentle movements", "Use core muscles", "Breathe normally"],
+    "contraindications": ["Recent spinal surgery"],
+    "modifications": {
+      "easier": "Smaller movements",
+      "harder": "Hold each position longer"
+    }
+  },
+  {
+    "id": "12",
+    "name": "Superman (Modified)",
+    "description": "Back extensor strengthening without compression. Safe spinal strengthening.",
     "category": "strengthening",
     "type": "reps",
-    "reps": 12,
-    "targetMuscles": ["Glutes", "Hamstrings", "Lower back", "Core"],
+    "reps": 10,
+    "sets": 3,
+    "restBetweenSets": 30,
+    "targetMuscles": ["Back extensors", "Glutes"],
+    "difficulty": "intermediate",
+    "equipment": "none",
+    "imageUrl": "https://images.unsplash.com/photo-1571019613576-2b22c76fd955?w=400",
     "instructions": [
-      "Lie on your back with knees bent and feet flat",
-      "Lift your hips off the floor until body forms a straight line",
-      "Hold for 2-3 seconds",
-      "Lower back down slowly"
+      "Lie face down on floor",
+      "Arms extended overhead",
+      "Lift arms and chest off floor slightly",
+      "Hold 3 seconds",
+      "Lower with control"
     ],
-    "tips": [
-      "Squeeze your glutes at the top",
-      "Keep your core engaged",
-      "Don't arch your back excessively"
+    "formCues": ["Small lift only", "Don't strain neck", "Squeeze shoulder blades"],
+    "contraindications": ["Spinal stenosis", "Acute pain"],
+    "modifications": {
+      "easier": "Lift only arms OR legs",
+      "harder": "Lift arms and legs together"
+    }
+  },
+  {
+    "id": "13",
+    "name": "Push-ups (Knee or Regular)",
+    "description": "Upper body strength development. Builds chest, arms, and shoulder stability.",
+    "category": "upper_body",
+    "type": "reps",
+    "reps": 12,
+    "sets": 3,
+    "restBetweenSets": 60,
+    "targetMuscles": ["Chest", "Triceps", "Shoulders", "Core"],
+    "difficulty": "intermediate",
+    "equipment": "none",
+    "imageUrl": "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400",
+    "instructions": [
+      "Start in plank or knee plank position",
+      "Hands slightly wider than shoulders",
+      "Lower chest to floor",
+      "Keep core tight throughout",
+      "Push back to start"
     ],
-    "warnings": [
-      "Start with small movements",
-      "Stop if you feel pain in your lower back"
-    ]
+    "formCues": ["Don't let hips sag", "Full range of motion", "Control descent"],
+    "contraindications": ["Shoulder injury", "Wrist pain"],
+    "modifications": {
+      "easier": "Push-ups on knees",
+      "harder": "Full push-ups with slow tempo"
+    }
+  },
+  {
+    "id": "14",
+    "name": "Shoulder Taps (Plank)",
+    "description": "Anti-rotation core stability. Challenges balance and coordination.",
+    "category": "core",
+    "type": "reps",
+    "reps": 16,
+    "sets": 3,
+    "restBetweenSets": 45,
+    "targetMuscles": ["Core", "Shoulders", "Obliques"],
+    "difficulty": "intermediate",
+    "equipment": "none",
+    "imageUrl": "https://images.unsplash.com/photo-1571019613576-2b22c76fd955?w=400",
+    "instructions": [
+      "Start in high plank position",
+      "Keep hips level and still",
+      "Lift right hand to tap left shoulder",
+      "Return to plank",
+      "Alternate sides for 16 reps total"
+    ],
+    "formCues": ["Minimize hip rotation", "Keep core braced", "Slow controlled taps"],
+    "contraindications": ["Wrist issues"],
+    "modifications": {
+      "easier": "Plank on knees",
+      "harder": "Slower tempo"
+    }
+  },
+  {
+    "id": "15",
+    "name": "Quadruped Hip Extension",
+    "description": "Glute isolation and hip strength. Supports spine during lifting movements.",
+    "category": "lower_body",
+    "type": "reps",
+    "reps": 12,
+    "sets": 3,
+    "restBetweenSets": 30,
+    "targetMuscles": ["Glutes", "Hamstrings", "Core"],
+    "difficulty": "beginner",
+    "equipment": "none",
+    "imageUrl": "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=400",
+    "instructions": [
+      "Start on hands and knees",
+      "Keep knee bent at 90 degrees",
+      "Lift one leg up, pushing heel toward ceiling",
+      "Squeeze glute at top",
+      "Lower with control, switch legs"
+    ],
+    "formCues": ["Don't arch lower back", "Squeeze glutes", "Keep hips level"],
+    "contraindications": ["Hip pain"],
+    "modifications": {
+      "easier": "Smaller range of motion",
+      "harder": "Add ankle weight or pulse at top"
+    }
+  },
+  {
+    "id": "16",
+    "name": "Knee Plank",
+    "description": "Modified plank for building core endurance safely.",
+    "category": "core",
+    "type": "duration",
+    "duration": 30,
+    "sets": 3,
+    "restBetweenSets": 45,
+    "targetMuscles": ["Core", "Shoulders"],
+    "difficulty": "beginner",
+    "equipment": "none",
+    "imageUrl": "https://images.unsplash.com/photo-1571019613576-2b22c76fd955?w=400",
+    "instructions": [
+      "Start on forearms and knees",
+      "Body forms straight line from head to knees",
+      "Keep core engaged",
+      "Don't let hips sag",
+      "Hold for 30 seconds"
+    ],
+    "formCues": ["Breathe steadily", "Keep shoulders over elbows", "Engage glutes"],
+    "contraindications": ["Shoulder problems"],
+    "modifications": {
+      "easier": "Shorter hold time",
+      "harder": "Progress to full plank"
+    }
+  },
+  {
+    "id": "17",
+    "name": "Wall Angels",
+    "description": "Thoracic mobility and shoulder blade control. Excellent for posture.",
+    "category": "mobility",
+    "type": "reps",
+    "reps": 12,
+    "sets": 3,
+    "restBetweenSets": 30,
+    "targetMuscles": ["Upper back", "Shoulders", "Core"],
+    "difficulty": "beginner",
+    "equipment": "wall",
+    "imageUrl": "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400",
+    "instructions": [
+      "Stand with back flat against wall",
+      "Arms in 'W' position",
+      "Slowly slide arms up into 'Y' position",
+      "Keep arms, head, and back touching wall",
+      "Slowly return to 'W'"
+    ],
+    "formCues": ["Maintain wall contact", "Move slowly", "Don't force range"],
+    "contraindications": ["Shoulder impingement"],
+    "modifications": {
+      "easier": "Smaller range of motion",
+      "harder": "Hold at top for 2 seconds"
+    }
+  },
+  {
+    "id": "18",
+    "name": "Prone Y-T-W",
+    "description": "Scapular strengthening for upper back and shoulder health.",
+    "category": "upper_body",
+    "type": "reps",
+    "reps": 8,
+    "sets": 2,
+    "restBetweenSets": 45,
+    "targetMuscles": ["Upper back", "Shoulders", "Rotator cuff"],
+    "difficulty": "intermediate",
+    "equipment": "none",
+    "imageUrl": "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400",
+    "instructions": [
+      "Lie face down on floor",
+      "Form 'Y' with arms: lift arms overhead at angle",
+      "Form 'T' with arms: lift arms out to sides",
+      "Form 'W' with arms: elbows bent, lift hands up",
+      "Do 8 reps of each letter"
+    ],
+    "formCues": ["Small controlled lifts", "Squeeze shoulder blades", "Don't strain neck"],
+    "contraindications": ["Shoulder pain"],
+    "modifications": {
+      "easier": "Arms on floor, just slide",
+      "harder": "Hold each position 3 seconds"
+    }
+  },
+  {
+    "id": "19",
+    "name": "Hip Flexor Stretch",
+    "description": "Releases tight hip flexors that contribute to lower back pain.",
+    "category": "flexibility",
+    "type": "duration",
+    "duration": 60,
+    "sets": 2,
+    "restBetweenSets": 0,
+    "targetMuscles": ["Hip flexors", "Quadriceps"],
+    "difficulty": "beginner",
+    "equipment": "none",
+    "imageUrl": "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400",
+    "instructions": [
+      "Kneel on right knee, left foot forward",
+      "Tuck pelvis under (posterior tilt)",
+      "Lean forward gently",
+      "Feel stretch in right hip flexor",
+      "Hold 60 seconds each side"
+    ],
+    "formCues": ["Keep core engaged", "Don't arch lower back", "Breathe deeply"],
+    "contraindications": ["Knee problems"],
+    "modifications": {
+      "easier": "Place cushion under knee",
+      "harder": "Reach arm overhead on same side"
+    }
+  },
+  {
+    "id": "20",
+    "name": "Cobra Stretch (Gentle)",
+    "description": "Gentle spinal extension for decompression. Nerve gliding exercise.",
+    "category": "flexibility",
+    "type": "duration",
+    "duration": 120,
+    "sets": 1,
+    "restBetweenSets": 0,
+    "targetMuscles": ["Spine", "Hip flexors", "Chest"],
+    "difficulty": "beginner",
+    "equipment": "none",
+    "imageUrl": "https://images.unsplash.com/photo-1599901860904-17e6ed7083a0?w=400",
+    "instructions": [
+      "Lie face down on floor",
+      "Place hands under shoulders",
+      "Gently push up, extending spine",
+      "Keep hips on floor",
+      "Hold gentle extension for 2 minutes"
+    ],
+    "formCues": ["Very gentle extension", "Relax shoulders", "Breathe deeply"],
+    "contraindications": ["Spinal stenosis", "Spondylolisthesis"],
+    "modifications": {
+      "easier": "Sphinx pose (on forearms)",
+      "harder": "Slightly higher extension"
+    }
   }
 ]

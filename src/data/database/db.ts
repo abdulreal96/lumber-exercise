@@ -136,16 +136,20 @@ export class Database {
       );
     }
 
-    // Create default morning routine
+    // Create default morning routine (exercises 1-10)
+    // Designed for polyradiculopathy: focus on nerve gliding, core stability, safe strengthening
     await db.runAsync(
       `INSERT INTO routines (title, type, exercise_order) VALUES (?, ?, ?)`,
-      ['Morning Routine', 'morning', JSON.stringify([1, 2, 3])] // Cat-Cow, Pelvic Tilt, Bird Dog
+      ['Morning Routine', 'morning', JSON.stringify([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])]
+      // Cat-Cow, Bird Dog, Dead Bug, Wall Push-ups, Plank, Side Plank, Scapular Wall Slides, Glute Bridges, Chest Stretch, Child's Pose
     );
 
-    // Create default evening routine
+    // Create default evening routine (exercises 11-20)
+    // Designed for polyradiculopathy: focus on decompression, flexibility, gentle strengthening
     await db.runAsync(
       `INSERT INTO routines (title, type, exercise_order) VALUES (?, ?, ?)`,
-      ['Evening Routine', 'evening', JSON.stringify([4, 5, 7])] // Child's Pose, Knee to Chest, Seated Twist
+      ['Evening Routine', 'evening', JSON.stringify([11, 12, 13, 14, 15, 16, 17, 18, 19, 20])]
+      // Pelvic Tilts, Superman, Push-ups, Shoulder Taps, Quad Hip Extension, Knee Plank, Wall Angels, Prone Y-T-W, Hip Flexor Stretch, Cobra
     );
 
     console.log('Database seeded successfully');

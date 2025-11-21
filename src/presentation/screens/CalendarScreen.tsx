@@ -7,6 +7,7 @@ import {
   ActivityIndicator,
   TouchableOpacity,
 } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
 import { SessionService } from '../../services/SessionService';
 import { SessionRepository } from '../../data/repositories/SessionRepository';
 import { Database } from '../../data/database/db';
@@ -35,6 +36,13 @@ export default function CalendarScreen() {
     loadSessions();
   }, []);
 
+  // Auto-refresh when screen comes into focus
+  useFocusEffect(
+    React.useCallback(() => {
+      loadSessions();
+    }, [])
+  );
+
   const loadSessions = async () => {
     try {
       console.log('[CalendarScreen] Getting database instance...');
@@ -42,7 +50,7 @@ export default function CalendarScreen() {
       const sessionService = new SessionService(new SessionRepository(db));
       
       console.log('[CalendarScreen] Loading sessions...');
-      const allSessions = await sessionService.getAllSessions();
+      const allSessions = await sessionService.getHistory();
       console.log(`[CalendarScreen] Loaded ${allSessions.length} sessions`);
       setSessions(allSessions.filter((s) => !!s.completed));
     } catch (error) {

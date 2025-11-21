@@ -6,8 +6,11 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   Alert,
+  ScrollView,
+  Image,
 } from 'react-native';
 import { useRoute, useNavigation, RouteProp } from '@react-navigation/native';
+import { Ionicons } from '@expo/vector-icons';
 import { RootStackParamList } from '../../navigation/types';
 import { SessionService } from '../../services/SessionService';
 import { RoutineService } from '../../services/RoutineService';
@@ -176,9 +179,36 @@ export default function SessionScreen() {
         </Text>
       </View>
 
-      {/* Exercise Content */}
-      <View style={styles.exerciseContainer}>
-        <Text style={styles.exerciseName}>{currentExercise.name}</Text>
+      {/* Exercise Content - Scrollable */}
+      <ScrollView style={styles.scrollContainer} contentContainerStyle={styles.exerciseContainer}>
+        {/* Exercise Image */}
+        {currentExercise.imageUrl && (
+          <Image
+            source={{ uri: currentExercise.imageUrl }}
+            style={styles.exerciseImage}
+            resizeMode="cover"
+          />
+        )}
+
+        {/* Exercise Header */}
+        <View style={styles.exerciseHeader}>
+          <Text style={styles.exerciseName}>{currentExercise.name}</Text>
+          <View style={styles.exerciseMetaRow}>
+            <View style={styles.metaBadge}>
+              <Ionicons name="repeat" size={14} color="#6366F1" />
+              <Text style={styles.metaText}>{currentExercise.sets} sets</Text>
+            </View>
+            <View style={styles.metaBadge}>
+              <Ionicons name="time" size={14} color="#6366F1" />
+              <Text style={styles.metaText}>{currentExercise.restBetweenSets}s rest</Text>
+            </View>
+            <View style={styles.metaBadge}>
+              <Ionicons name="fitness" size={14} color="#6366F1" />
+              <Text style={styles.metaText}>{currentExercise.difficulty}</Text>
+            </View>
+          </View>
+        </View>
+
         <Text style={styles.exerciseDescription}>
           {currentExercise.description}
         </Text>
@@ -191,33 +221,64 @@ export default function SessionScreen() {
               {Math.floor(timer / 60)}:{(timer % 60).toString().padStart(2, '0')}
             </Text>
             <Text style={styles.timerTarget}>
-              Target: {currentExercise.duration}s
+              Target: {currentExercise.duration}s ({currentExercise.sets} sets)
             </Text>
-            {timer >= currentExercise.duration && (
-              <Text style={styles.timerComplete}>✓ Target reached!</Text>
+            {timer >= (currentExercise.duration! * currentExercise.sets) && (
+              <Text style={styles.timerComplete}>✓ All sets complete!</Text>
             )}
           </View>
         ) : (
           <View style={styles.repsContainer}>
             <Text style={styles.repsLabel}>Target Repetitions</Text>
             <Text style={styles.repsValue}>{currentExercise.reps}</Text>
-            <Text style={styles.repsText}>reps</Text>
+            <Text style={styles.repsText}>reps × {currentExercise.sets} sets</Text>
           </View>
         )}
 
-        {/* Instructions */}
-        {currentExercise.instructions &&
-          currentExercise.instructions.length > 0 && (
-            <View style={styles.instructionsContainer}>
-              <Text style={styles.instructionsTitle}>How to perform:</Text>
-              {currentExercise.instructions.map((instruction, index) => (
-                <Text key={index} style={styles.instructionText}>
-                  {index + 1}. {instruction}
-                </Text>
-              ))}
+        {/* Form Cues - Highlighted */}
+        {currentExercise.formCues && currentExercise.formCues.length > 0 && (
+          <View style={styles.formCuesCard}>
+            <View style={styles.formCuesHeader}>
+              <Ionicons name="checkmark-circle" size={20} color="#4CAF50" />
+              <Text style={styles.formCuesTitle}>Key Form Points</Text>
             </View>
-          )}
-      </View>
+            {currentExercise.formCues.map((cue, index) => (
+              <View key={index} style={styles.formCueItem}>
+                <Ionicons name="checkmark" size={16} color="#4CAF50" />
+                <Text style={styles.formCueText}>{cue}</Text>
+              </View>
+            ))}
+          </View>
+        )}
+
+        {/* Instructions - Collapsible */}
+        {currentExercise.instructions && currentExercise.instructions.length > 0 && (
+          <View style={styles.instructionsContainer}>
+            <Text style={styles.instructionsTitle}>How to perform:</Text>
+            {currentExercise.instructions.map((instruction, index) => (
+              <View key={index} style={styles.instructionItem}>
+                <View style={styles.instructionNumber}>
+                  <Text style={styles.instructionNumberText}>{index + 1}</Text>
+                </View>
+                <Text style={styles.instructionText}>{instruction}</Text>
+              </View>
+            ))}
+          </View>
+        )}
+
+        {/* Contraindications Warning */}
+        {currentExercise.contraindications && currentExercise.contraindications.length > 0 && (
+          <View style={styles.contraCard}>
+            <View style={styles.contraHeader}>
+              <Ionicons name="warning" size={18} color="#F44336" />
+              <Text style={styles.contraTitle}>Stop if you have:</Text>
+            </View>
+            {currentExercise.contraindications.map((contra, index) => (
+              <Text key={index} style={styles.contraText}>• {contra}</Text>
+            ))}
+          </View>
+        )}
+      </ScrollView>
 
       {/* Controls */}
       <View style={styles.controlsContainer}>
@@ -226,8 +287,9 @@ export default function SessionScreen() {
             style={[styles.controlButton, styles.pauseButton]}
             onPress={handlePauseResume}
           >
+            <Ionicons name={isPaused ? 'play' : 'pause'} size={20} color="#fff" />
             <Text style={styles.controlButtonText}>
-              {isPaused ? '▶ Resume' : '⏸ Pause'}
+              {isPaused ? 'Resume' : 'Pause'}
             </Text>
           </TouchableOpacity>
         )}
@@ -236,15 +298,17 @@ export default function SessionScreen() {
           style={[styles.controlButton, styles.skipButton]}
           onPress={handleSkip}
         >
-          <Text style={styles.controlButtonText}>Skip ⏭</Text>
+          <Ionicons name="play-forward" size={20} color="#fff" />
+          <Text style={styles.controlButtonText}>Skip</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
           style={[styles.controlButton, styles.completeButton]}
           onPress={handleComplete}
         >
+          <Ionicons name="checkmark" size={20} color="#fff" />
           <Text style={styles.completeButtonText}>
-            {currentIndex === exercises.length - 1 ? 'Finish ✓' : 'Complete ✓'}
+            {currentIndex === exercises.length - 1 ? 'Finish' : 'Complete'}
           </Text>
         </TouchableOpacity>
       </View>
@@ -286,22 +350,125 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   exerciseContainer: {
-    flex: 1,
     padding: 20,
   },
+  exerciseImage: {
+    width: '100%',
+    height: 200,
+    borderRadius: 12,
+    marginBottom: 16,
+  },
+  exerciseHeader: {
+    marginBottom: 12,
+  },
   exerciseName: {
-    fontSize: 28,
+    fontSize: 24,
     fontWeight: 'bold',
     color: '#333',
-    marginBottom: 12,
-    textAlign: 'center',
+    marginBottom: 8,
+  },
+  exerciseMetaRow: {
+    flexDirection: 'row',
+    gap: 8,
+    flexWrap: 'wrap',
+  },
+  metaBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#F3F4F6',
+    paddingHorizontal: 10,
+    paddingVertical: 6,
+    borderRadius: 12,
+    gap: 4,
+  },
+  metaText: {
+    fontSize: 12,
+    color: '#6366F1',
+    fontWeight: '600',
   },
   exerciseDescription: {
-    fontSize: 16,
+    fontSize: 15,
     color: '#666',
-    textAlign: 'center',
-    marginBottom: 32,
-    lineHeight: 24,
+    marginBottom: 20,
+    lineHeight: 22,
+  },
+  scrollContainer: {
+    flex: 1,
+  },
+  formCuesCard: {
+    backgroundColor: '#E8F5E9',
+    padding: 16,
+    borderRadius: 12,
+    marginBottom: 16,
+    borderLeftWidth: 4,
+    borderLeftColor: '#4CAF50',
+  },
+  formCuesHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 12,
+    gap: 8,
+  },
+  formCuesTitle: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#2E7D32',
+  },
+  formCueItem: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    marginBottom: 8,
+    gap: 8,
+  },
+  formCueText: {
+    flex: 1,
+    fontSize: 14,
+    color: '#2E7D32',
+    lineHeight: 20,
+  },
+  instructionItem: {
+    flexDirection: 'row',
+    marginBottom: 12,
+    alignItems: 'flex-start',
+  },
+  instructionNumber: {
+    width: 24,
+    height: 24,
+    borderRadius: 12,
+    backgroundColor: '#6366F1',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 10,
+  },
+  instructionNumberText: {
+    color: '#fff',
+    fontSize: 12,
+    fontWeight: 'bold',
+  },
+  contraCard: {
+    backgroundColor: '#FFEBEE',
+    padding: 16,
+    borderRadius: 12,
+    marginBottom: 16,
+    borderLeftWidth: 4,
+    borderLeftColor: '#F44336',
+  },
+  contraHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 8,
+    gap: 8,
+  },
+  contraTitle: {
+    fontSize: 15,
+    fontWeight: 'bold',
+    color: '#C62828',
+  },
+  contraText: {
+    fontSize: 13,
+    color: '#C62828',
+    lineHeight: 20,
+    marginLeft: 4,
   },
   timerContainer: {
     alignItems: 'center',
@@ -386,13 +553,17 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderTopWidth: 1,
     borderTopColor: '#e0e0e0',
-    gap: 12,
+    flexDirection: 'row',
+    gap: 8,
   },
   controlButton: {
-    padding: 16,
+    flex: 1,
+    flexDirection: 'row',
+    padding: 14,
     borderRadius: 12,
     alignItems: 'center',
-    marginBottom: 8,
+    justifyContent: 'center',
+    gap: 6,
   },
   pauseButton: {
     backgroundColor: '#FF9800',

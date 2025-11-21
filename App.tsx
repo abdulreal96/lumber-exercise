@@ -7,6 +7,7 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, ActivityIndicator } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import * as Notifications from 'expo-notifications';
 import { Database } from './src/data/database/db';
 import { RootNavigator } from './src/navigation/RootNavigator';
 import { ErrorBoundary } from './src/components/ErrorBoundary';
@@ -22,6 +23,9 @@ export default function App() {
 
   const initializeApp = async () => {
     try {
+      // Request notification permissions
+      await requestNotificationPermissions();
+
       // Initialize database
       await Database.getInstance();
 
@@ -37,6 +41,26 @@ export default function App() {
     } catch (err) {
       console.error('Failed to initialize app:', err);
       setError(err instanceof Error ? err.message : 'Unknown error');
+    }
+  };
+
+  const requestNotificationPermissions = async () => {
+    try {
+      const { status: existingStatus } = await Notifications.getPermissionsAsync();
+      let finalStatus = existingStatus;
+
+      if (existingStatus !== 'granted') {
+        const { status } = await Notifications.requestPermissionsAsync();
+        finalStatus = status;
+      }
+
+      if (finalStatus !== 'granted') {
+        console.log('[App] Notification permission not granted');
+      } else {
+        console.log('[App] Notification permission granted');
+      }
+    } catch (error) {
+      console.error('[App] Error requesting notification permissions:', error);
     }
   };
 

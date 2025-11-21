@@ -7,6 +7,7 @@ import {
   ActivityIndicator,
   RefreshControl,
 } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
 import { SessionService } from '../../services/SessionService';
 import { SessionRepository } from '../../data/repositories/SessionRepository';
 import { Database } from '../../data/database/db';
@@ -24,11 +25,18 @@ export default function HistoryScreen() {
     loadData();
   }, []);
 
+  // Auto-refresh when screen comes into focus
+  useFocusEffect(
+    React.useCallback(() => {
+      loadData();
+    }, [])
+  );
+
   const loadData = async () => {
     try {
       const db = await Database.getInstance();
       const sessionService = new SessionService(new SessionRepository(db));
-      const allSessions = await sessionService.getAllSessions();
+      const allSessions = await sessionService.getHistory();
       const stats = await sessionService.getStatistics();
 
       // Sort by date descending

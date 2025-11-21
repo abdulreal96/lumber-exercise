@@ -3,12 +3,25 @@
 /**
  * Exercise category classification
  */
-export type ExerciseCategory = 'stretching' | 'strengthening' | 'flexibility' | 'posture';
+export type ExerciseCategory = 'stretching' | 'strengthening' | 'flexibility' | 'posture' | 'mobility' | 'core' | 'upper_body' | 'lower_body';
 
 /**
  * Exercise type classification
  */
 export type ExerciseType = 'reps' | 'duration';
+
+/**
+ * Exercise difficulty levels
+ */
+export type ExerciseDifficulty = 'beginner' | 'intermediate' | 'advanced';
+
+/**
+ * Exercise modifications for different skill levels
+ */
+export interface ExerciseModifications {
+  easier: string;
+  harder: string;
+}
 
 /**
  * Exercise entity - represents a single lumbar exercise
@@ -22,10 +35,19 @@ export interface Exercise {
   type: ExerciseType;
   reps?: number; // For rep-based exercises
   duration?: number; // For timed exercises (in seconds)
+  sets: number; // Number of sets to perform
+  restBetweenSets: number; // Rest in seconds between sets
   targetMuscles: string[];
-  instructions: string[];
-  tips: string[];
-  warnings: string[];
+  difficulty: ExerciseDifficulty;
+  equipment: string; // Equipment needed (e.g., 'none', 'wall', 'chair')
+  imageUrl: string; // URL to exercise demonstration image
+  instructions: string[]; // Step-by-step instructions
+  formCues: string[]; // Key points for proper form
+  contraindications: string[]; // When NOT to do this exercise
+  modifications: ExerciseModifications; // Easier and harder variations
+  // Deprecated fields (kept for backward compatibility)
+  tips?: string[];
+  warnings?: string[];
 }
 
 /**
