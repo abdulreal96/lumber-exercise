@@ -1,0 +1,188 @@
+[
+  {
+    "id": "1",
+    "name": "Cat-Cow Stretch",
+    "description": "A gentle flowing exercise to warm up the spine and relieve tension in the lower back.",
+    "category": "stretching",
+    "type": "duration",
+    "duration": 60,
+    "targetMuscles": ["Lower back", "Core"],
+    "instructions": [
+      "Start on your hands and knees in a tabletop position",
+      "Inhale and arch your back, dropping your belly (Cow pose)",
+      "Exhale and round your spine, tucking your chin (Cat pose)",
+      "Continue flowing between these positions"
+    ],
+    "tips": [
+      "Move slowly and smoothly with your breath",
+      "Keep movements gentle and controlled"
+    ],
+    "warnings": [
+      "Stop if you feel sharp pain",
+      "Avoid if you have recent back injury"
+    ]
+  },
+  {
+    "id": "2",
+    "name": "Pelvic Tilt",
+    "description": "Strengthens the lower back and core muscles while improving posture.",
+    "category": "strengthening",
+    "type": "reps",
+    "reps": 10,
+    "targetMuscles": ["Lower back", "Abdominals", "Glutes"],
+    "instructions": [
+      "Lie on your back with knees bent and feet flat on the floor",
+      "Tighten your abdominal muscles",
+      "Flatten your lower back against the floor",
+      "Hold for 5 seconds, then relax"
+    ],
+    "tips": [
+      "Focus on using your core muscles",
+      "Breathe normally throughout the exercise"
+    ],
+    "warnings": [
+      "Start with small movements",
+      "Do not hold your breath"
+    ]
+  },
+  {
+    "id": "3",
+    "name": "Bird Dog",
+    "description": "Improves balance and strengthens the core and lower back stabilizer muscles.",
+    "category": "strengthening",
+    "type": "reps",
+    "reps": 10,
+    "targetMuscles": ["Lower back", "Core", "Glutes", "Shoulders"],
+    "instructions": [
+      "Start on your hands and knees",
+      "Extend your right arm forward and left leg back simultaneously",
+      "Hold for 3-5 seconds keeping your core tight",
+      "Return to start and switch sides"
+    ],
+    "tips": [
+      "Keep your hips level",
+      "Move slowly and with control",
+      "Focus on keeping your back straight"
+    ],
+    "warnings": [
+      "Stop if you feel dizzy",
+      "Avoid arching your back"
+    ]
+  },
+  {
+    "id": "4",
+    "name": "Child's Pose",
+    "description": "A restorative stretch that gently elongates the spine and relieves tension.",
+    "category": "flexibility",
+    "type": "duration",
+    "duration": 30,
+    "targetMuscles": ["Lower back", "Hips", "Thighs"],
+    "instructions": [
+      "Kneel on the floor with your big toes touching",
+      "Sit back on your heels",
+      "Extend your arms forward and lower your chest",
+      "Rest your forehead on the floor"
+    ],
+    "tips": [
+      "Breathe deeply and relax into the stretch",
+      "Place a pillow under your forehead if needed"
+    ],
+    "warnings": [
+      "Avoid if you have knee problems",
+      "Stop if you feel pain in your knees or hips"
+    ]
+  },
+  {
+    "id": "5",
+    "name": "Knee to Chest",
+    "description": "Stretches the lower back and helps relieve pressure on spinal nerves.",
+    "category": "stretching",
+    "type": "reps",
+    "reps": 10,
+    "targetMuscles": ["Lower back", "Glutes", "Hamstrings"],
+    "instructions": [
+      "Lie on your back with knees bent",
+      "Bring one knee toward your chest",
+      "Hold for 5 seconds",
+      "Return to start and repeat with the other leg"
+    ],
+    "tips": [
+      "Pull gently, don't force the stretch",
+      "Keep your back flat on the floor"
+    ],
+    "warnings": [
+      "Stop if you feel pain radiating down your leg",
+      "Avoid if you have hip problems"
+    ]
+  },
+  {
+    "id": "6",
+    "name": "Standing Back Extension",
+    "description": "Strengthens the lower back muscles and improves posture.",
+    "category": "posture",
+    "type": "reps",
+    "reps": 10,
+    "targetMuscles": ["Lower back", "Glutes"],
+    "instructions": [
+      "Stand up straight with your feet shoulder-width apart",
+      "Place your hands on your lower back",
+      "Gently arch backward, looking up",
+      "Hold for 2-3 seconds, then return to upright"
+    ],
+    "tips": [
+      "Keep the movement gentle and controlled",
+      "Support your lower back with your hands"
+    ],
+    "warnings": [
+      "Stop if you feel sharp pain",
+      "Don't overextend if you have spinal stenosis"
+    ]
+  },
+  {
+    "id": "7",
+    "name": "Seated Spinal Twist",
+    "description": "Improves spinal mobility and relieves tension in the back.",
+    "category": "flexibility",
+    "type": "duration",
+    "duration": 30,
+    "targetMuscles": ["Lower back", "Obliques", "Hips"],
+    "instructions": [
+      "Sit on the floor with legs extended",
+      "Bend your right knee and place foot over left leg",
+      "Twist to the right, placing left elbow outside right knee",
+      "Hold, then repeat on the other side"
+    ],
+    "tips": [
+      "Sit up tall throughout the stretch",
+      "Breathe deeply and twist a little deeper with each exhale"
+    ],
+    "warnings": [
+      "Move gently, don't force the twist",
+      "Avoid if you have disc herniation"
+    ]
+  },
+  {
+    "id": "8",
+    "name": "Bridge Exercise",
+    "description": "Strengthens the glutes, hamstrings, and lower back muscles.",
+    "category": "strengthening",
+    "type": "reps",
+    "reps": 12,
+    "targetMuscles": ["Glutes", "Hamstrings", "Lower back", "Core"],
+    "instructions": [
+      "Lie on your back with knees bent and feet flat",
+      "Lift your hips off the floor until body forms a straight line",
+      "Hold for 2-3 seconds",
+      "Lower back down slowly"
+    ],
+    "tips": [
+      "Squeeze your glutes at the top",
+      "Keep your core engaged",
+      "Don't arch your back excessively"
+    ],
+    "warnings": [
+      "Start with small movements",
+      "Stop if you feel pain in your lower back"
+    ]
+  }
+]

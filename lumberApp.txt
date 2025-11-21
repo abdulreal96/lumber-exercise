@@ -1,0 +1,393 @@
+
+
+LumbarExerciseReminder — Full Requirements & Developer Guide (Expo / React Native)
+
+Project summary:
+A personal, sideloadable Expo React Native mobile app that reminds the user to run a safe lumbar-exercise routine every day at 07:00 and 17:00, lets the user run guided sessions, mark exercises “Done”, tracks completion history, shows calendar/stats, and supports configurable reminders and basic export.
+
+1 — High-level requirements
+Must-haves:
+- Expo-managed React Native app.
+- Two scheduled local notifications every day: 07:00 (morning) and 17:00 (evening).
+- A guided routine per session with per-exercise timers / reps and a “Done” button per exercise or at routine end.
+- Session logging: date, time, exercises completed, duration, notes.
+- Calendar view and daily/weekly/monthly progress stats (streaks % and counts).
+- Ability to snooze and dismiss notifications.
+- In-app settings (toggle reminders, change snooze minutes, enable/disable specific exercises).
+- Images (or placeholders) per exercise; easy to replace later.
+- Data stored locally on-device (no backend required).
+- Export/Import logs as JSON (share or copy to file).
+- Safety notice & red-flag advice accessible in app.
+
+Nice-to-haves:
+- Simple animations / Lottie for exercises.
+- Audio spoken guidance (TTS).
+- Export to CSV.
+
+2 — Tech stack & packages (recommended)
+Expo managed workflow (recommended)
+- Expo SDK (latest stable)
+- React Native (via Expo)
+- expo-notifications — local notifications + scheduling
+- expo-sqlite or @react-native-async-storage/async-storage for persistence (prefer expo-sqlite for structured data)
+- react-navigation (stack + bottom-tabs)
+- date-fns for date handling
+- react-native-calendars or similar for calendar view (optional)
+- react-native-svg & react-native-svg-transformer if using SVG assets
+- lottie-react-native + Lottie files (optional)
+- expo-file-system for export/import and storing images if needed
+
+Example package.json deps (agent should use latest compatible versions):
+{
+  "dependencies": {
+    "expo": "latest",
+    "react": "18.x",
+    "react-native": "0.72.x",
+    "expo-notifications": "latest",
+    "expo-sqlite": "latest",
+    "@react-native-async-storage/async-storage": "latest",
+    "@react-navigation/native": "latest",
+    "@react-navigation/stack": "latest",
+    "date-fns": "latest",
+    "react-native-calendars": "latest"
+  }
+}
+
+3 — Project structure (suggested)
+/app
+  /assets
+    /images
+      placeholder.png
+      mcKenzie.png
+      modified_plank.png
+  /src
+    /api
+      db.ts              # sqlite wrapper
+    /components
+      ExerciseCard.tsx
+      SessionPlayer.tsx
+      NotificationControls.tsx
+    /screens
+      Home.tsx
+      Session.tsx
+      ExerciseDetail.tsx
+      History.tsx
+      Calendar.tsx
+      Settings.tsx
+      Onboarding.tsx
+      Help.tsx
+    /constants
+      exercises.json
+    /hooks
+      useNotifications.ts
+      useScheduler.ts
+    /models
+      types.ts
+    /utils
+      dateUtils.ts
+  App.tsx
+  app.json
+  package.json
+
+4 — Data model (local DB / sqlite tables)
+Exercise
+- id (integer, PK)
+- title (string)
+- description (string)
+- category (string: warmup/core/upper/lower/stretch)
+- repetitions (int, optional)
+- duration_seconds (int, optional) — for timed exercises
+- asset (string: local filename or URL)
+- contraindications (string, optional)
+
+Routine
+- id
+- title (Morning/Evening/Custom)
+- exercise_order (JSON array of exercise ids)
+
+SessionLog
+- id
+- routine_id (foreign)
+- date_iso (string) — e.g. 2025-11-20
+- start_timestamp (int)
+- end_timestamp (int)
+- exercises_done (JSON: [{exerciseId, completed, reps, duration}])
+- notes (string)
+- completed (boolean)
+
+Settings (key-value store, DataStore/AsyncStorage)
+- morning_time = "07:00" (fixed but configurable)
+- evening_time = "17:00"
+- notifications_enabled = true
+- snooze_minutes = 10
+- disabled_exercises = [id,...]
+
+5 — Exercise seed data (start with these safe exercises)
+Create /src/constants/exercises.json (IDs should be stable):
+[
+  {
+    "id": 1,
+    "title": "McKenzie Back Extension",
+    "description": "Lie on stomach and gently push up with hands keeping hips on floor. 10 reps.",
+    "category": "warmup",
+    "repetitions": 10,
+    "duration_seconds": null,
+    "asset": "mcKenzie.png"
+  },
+  {
+    "id": 2,
+    "title": "Modified Plank",
+    "description": "Hold a neutral plank on elbows for 20-30 seconds. 2 reps.",
+    "category": "core",
+    "repetitions": null,
+    "duration_seconds": 30,
+    "asset": "modified_plank.png"
+  },
+  {
+    "id": 3,
+    "title": "Bird-Dog",
+    "description": "On hands and knees, extend opposite arm and leg and hold 3-5 seconds. 10 reps each side.",
+    "category": "core",
+    "repetitions": 10,
+    "duration_seconds": null,
+    "asset": "bird_dog.png"
+  },
+  {
+    "id": 4,
+    "title": "Glute Bridge",
+    "description": "Lie on back, knees bent; lift hips, squeeze glutes. 3 sets of 12 reps.",
+    "category": "lower",
+    "repetitions": 12,
+    "duration_seconds": null,
+    "asset": "glute_bridge.png"
+  }
+]
+
+6 — Image strategy (practical options)
+Goal: show best image for each exercise with minimal complexity.
+
+Options (ranked):
+1. Placeholders first (recommended for MVP)
+   - Ship local placeholder images (assets/images/placeholder.png) and short demonstration images for 4–8 exercises.
+   - Later swap with better assets.
+
+2. Use royalty-free photos / illustrations (simple)
+   - Source silhouette or simple exercise illustrations from: Unsplash (photos), OpenClipart, Pixabay, or Pexels.
+   - Download PNGs or SVGs into /assets/images/ and reference locally.
+
+3. Use Lottie / animated SVG (nice-to-have)
+   - Lottie files exist for many exercises; embed with lottie-react-native. Good UX, slightly extra work.
+
+4. Remote CDN (if you expect frequent updates)
+   - Host images on a simple CDN or GitHub raw URL; app downloads when needed. Requires network permission.
+
+Recommendation (MVP): Start with local PNG placeholders for each exercise. Later iterate and swap with Lottie or small GIFs for clarity.
+
+Naming convention: use lowercase, underscores, e.g. mcKenzie.png, modified_plank.png.
+
+7 — Notifications & scheduling (requirements & implementation notes)
+Rules
+- Schedule two daily notifications:
+  - Morning at 07:00 local device time
+  - Evening at 17:00 local device time
+- Notifications must show:
+  - Title: Time for your [Morning/Evening] Lumbar Routine
+  - Body: Tap to start • X exercises • ~Y minutes
+  - Actions: Start, Snooze (re-schedules for now + snoozeMinutes), Dismiss
+- User can toggle notifications on/off.
+- If user marks routine complete, cancel outstanding notification(s) for that session.
+
+Expo implementation
+- Use expo-notifications to schedule repeating notifications.
+- Example: Notifications.scheduleNotificationAsync({ content, trigger: { hour: 7, minute: 0, repeats: true } })
+- Request permission on first run; handle POST_NOTIFICATIONS for Android 13+.
+- Edge cases:
+  - Android Doze / battery optimizations may delay triggers. For strict timing on Android, a bare workflow or native alarm APIs are more reliable; for personal use Expo-scheduled notifications are usually acceptable.
+  - Re-register scheduled notifications on app start after device reboot if necessary (store the IDs and schedule again). For a managed Expo app without a BroadcastReceiver, full reboot-resilience can be limited; document this limitation for the agent.
+
+Snooze flow
+- On Snooze action, schedule a one-time notification at now + snoozeMinutes and dismiss current.
+
+8 — Session player / UX flow (detailed)
+Session screen (Session.tsx)
+- Header: Morning Routine • 07:00 (or Evening)
+- List of exercises in order (shows thumbnail, short description, reps/duration, a large Start button at top)
+- When user taps Start:
+  - Start first exercise timer (if timed) or show Mark Done button for rep-based.
+  - Show Next preview (small text/image).
+  - Show Pause, Skip, Done controls.
+- Per-exercise UI:
+  - If timed: big countdown timer + progress ring
+  - If rep-based: show target reps + a Complete / Mark Done button; optionally allow user to input actual reps
+- At end of routine:
+  - Show summary: total time, exercises completed (and any skipped), Save Session (default saved)
+  - Option to add Notes (pain, difficulty, red flag)
+- Logging:
+  - Create SessionLog with exercises_done details and timestamps
+  - Increase streak counters if session completed
+
+Quick actions from Notification
+- Start → open Session screen and begin.
+- Snooze → schedule snooze.
+- Dismiss → mark missed/cancel for that time.
+
+9 — Tracking & calendar
+History screen
+- Show list grouped by date with completion status.
+- Tapping a day expands to show session detail and notes.
+
+Calendar
+- Use react-native-calendars (or custom) to visualize days with completed sessions.
+- On calendar day tap, show session summary.
+
+Stats
+- Weekly completion percent: sessions_completed / sessions_expected (expected = 2/day * days)
+- Streak: number of consecutive days with ≥1 completed session (or both sessions — define in acceptance criteria).
+
+10 — Settings & onboarding details
+Onboarding
+- Quick flow on first run:
+  - Request notifications permission
+  - Ask whether user has lumbar condition (show medical disclaimer)
+  - Set morning and evening times (default 07:00 and 17:00; keep fixed per your ask but allow editing)
+
+Settings
+- Toggle reminders (on/off)
+- Set morning_time and evening_time (defaults locked to 07:00 & 17:00 but allow editing)
+- Snooze minutes option (default 10)
+- Manage exercises (enable/disable)
+- Export / Import data (JSON)
+- Delete all data
+
+11 — Export/Import (format)
+- Export JSON of SessionLog[] + Settings + User metadata.
+- Provide UI to share via system share sheet or save to file (using expo-file-system).
+
+12 — Edge cases & constraints to document to the agent
+- Notification reliability: Expo scheduled notifications are adequate for most personal uses, but Android power saving may delay them. For strict accuracy on Android you would eventually need to eject to bare/native and use AlarmManager with setExactAndAllowWhileIdle().
+- Device reboot: scheduled notifications may get cleared on some devices; store IDs and re-schedule on app start. For complete boot persistence on Android, a native BroadcastReceiver with RECEIVE_BOOT_COMPLETED is required (not available in pure managed Expo).
+- Background execution: heavy background tasks are limited. Use local notifications only; avoid long-running background work.
+- Permissions: POST_NOTIFICATIONS on Android 13+; file write access for export may require SAF or user pickers.
+
+13 — UX & accessibility guidance
+- Large buttons for Start, Done, and Skip.
+- High-contrast text.
+- Use accessible font sizes.
+- Provide vibration & subtle sound cues on exercise start/finish.
+- Include a safety disclaimer on onboarding and in Help screen.
+
+14 — Acceptance criteria (for QA / agent)
+1. On fresh install, app requests notification permission and creates two scheduled repeating notifications at 07:00 and 17:00 local time.
+2. Tapping the notification’s Start opens the Session player and begins the routine.
+3. The Session player allows marking each exercise as Done, skipping, pausing, and finishing. A completed session is saved to SessionLog.
+4. History screen lists session logs by date and shows details on tap.
+5. Calendar view marks days with completed sessions and tapping a date reveals session summary.
+6. Settings allow toggling reminders, changing snooze minutes, and disabling exercises.
+7. Export creates a valid JSON file containing logs and settings and can be shared or saved.
+8. Images are displayed for exercises (or placeholders when missing).
+9. Notifications show Start and Snooze actions; Snooze reschedules properly.
+
+15 — Developer tasks / sprint breakdown (suggested)
+Sprint 0 — Setup (1 day)
+- Create Expo app; install dependencies.
+- Add seed exercises.json and placeholder assets.
+- Setup navigation.
+
+Sprint 1 — Core storage & models (2–3 days)
+- Implement sqlite wrapper (expo-sqlite) or use AsyncStorage.
+- Implement data models and seed DB.
+
+Sprint 2 — Session player & UI (3–4 days)
+- Build session flow and per-exercise UI.
+- Implement Done & save session logic.
+
+Sprint 3 — Notifications & scheduling (2–3 days)
+- Use expo-notifications to request permission, schedule 07:00 & 17:00, snooze logic.
+- Add notification actions.
+
+Sprint 4 — History, calendar & export (2–3 days)
+- Build history screen and calendar.
+- Implement export/import.
+
+Sprint 5 — Settings, polish & testing (2–3 days)
+- Add settings, onboarding, small bug fixes.
+
+Sprint 6 — QA & packaging (1–2 days)
+- Test on Android device via Expo Go; prepare EAS build if needed for standalone APK.
+
+16 — Expo usage & how to test on Android (step-by-step)
+Dev & Test (fastest) — Expo Go
+1. Install Node & Yarn/npm on dev machine.
+2. Install Expo CLI:
+   npm install -g expo-cli
+   (or use npx expo command without global install)
+3. From project root:
+   npx expo start
+4. Install Expo Go on Android phone from Play Store.
+5. Scan QR code shown in terminal / browser with Expo Go — app runs on your phone instantly.
+   - Advantages: no Android Studio, very fast iteration.
+   - Limitations: some native modules (certain notification features) may behave differently in Expo Go; expo-notifications works in Expo Go for local notifications.
+
+If you want a standalone APK (sideload):
+- Use EAS Build (recommended).
+  - Requires an Expo account and some configuration (app.json/app.config.js).
+  - eas build --platform android --profile production will produce an .apk or .aab.
+- Or use expo prebuild and then native build but that requires Android SDK & more.
+
+Notes for your agent:
+- For quick personal testing: Expo Go is fine.
+- For background reliability and advanced native behavior: consider EAS build or prebuild to bare workflow.
+
+17 — Example code snippets (brief)
+Schedule daily notification (expo-notifications) — inside useScheduler.ts:
+import * as Notifications from 'expo-notifications';
+
+export async function scheduleDaily(hour: number, minute: number, content) {
+  return await Notifications.scheduleNotificationAsync({
+    content,
+    trigger: {
+      hour,
+      minute,
+      repeats: true
+    }
+  });
+}
+
+Handle notification actions — register response listener in App.tsx:
+useEffect(() => {
+  const subscription = Notifications.addNotificationResponseReceivedListener(response => {
+    const actionId = response.actionIdentifier;
+    if (actionId === 'start') {
+      // navigate to session
+    } else if (actionId === 'snooze') {
+      // schedule snooze
+    }
+  });
+  return () => subscription.remove();
+}, []);
+
+Save session log example (pseudo):
+await db.executeSql(
+  `INSERT INTO sessionlog (date_iso, start_timestamp, end_timestamp, exercises_done, completed) VALUES (?, ?, ?, ?, ?)`,
+  [dateIso, startTs, endTs, JSON.stringify(exercisesDone), 1]
+);
+
+18 — Security & privacy
+- All data stored locally. If implementing cloud sync later, require user auth & encryption.
+- Before export, warn user that data will be shared.
+- Include a privacy note in settings.
+
+19 — Final notes & handoff package for agent
+Provide the agent with:
+1. This document (copy/paste).
+2. Seed assets: assets/images/placeholder.png and the four PNGs referenced in exercises.json. If images are not available, use placeholder.png for all.
+3. exercises.json seed file.
+4. Desired exact times (hardcoded defaults): morningTime = "07:00", eveningTime = "17:00". Agent should make them editable in Settings.
+5. Acceptance criteria checklist above.
+
+20 — Optional next steps (I can do for you)
+- Generate a complete starter Expo project (file tree + App.tsx + a couple of screens + scheduling code + seed JSON + placeholders) that your agent can drop into their IDE and run with npx expo start.
+- Or produce the full API spec and REST interfaces (if later you want a backend).
+
+End of document.
+

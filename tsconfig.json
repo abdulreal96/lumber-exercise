@@ -1,6 +1,25 @@
 {
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
-    "strict": true
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "strictPropertyInitialization": false,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@domain/*": ["src/domain/*"],
+      "@data/*": ["src/data/*"],
+      "@services/*": ["src/services/*"],
+      "@presentation/*": ["src/presentation/*"],
+      "@utils/*": ["src/utils/*"],
+      "@constants/*": ["src/constants/*"]
+    }
   }
 }
