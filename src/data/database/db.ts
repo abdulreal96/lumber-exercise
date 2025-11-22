@@ -6,7 +6,7 @@ import * as SQLite from 'expo-sqlite';
  */
 export class Database {
   private static instance: SQLite.SQLiteDatabase | null = null;
-  private static readonly DB_NAME = 'lumbar_exercise.db';
+  private static readonly DB_NAME = 'lumbar_exercise_v2.db';
 
   private constructor() {}
 
@@ -37,6 +37,13 @@ export class Database {
         category TEXT NOT NULL,
         repetitions INTEGER,
         duration_seconds INTEGER,
+        sets INTEGER,
+        rest_seconds INTEGER,
+        image_url TEXT,
+        difficulty TEXT,
+        instructions TEXT,
+        tips TEXT,
+        modifications TEXT,
         asset TEXT NOT NULL,
         contraindications TEXT
       );
@@ -118,20 +125,30 @@ export class Database {
       return;
     }
 
-    // Insert exercises - Map new format to old DB schema
+    // Insert exercises - Map new format to DB schema
     for (const exercise of exercises) {
       await db.runAsync(
-        `INSERT INTO exercises (id, title, description, category, repetitions, duration_seconds, asset, contraindications)
-         VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+        `INSERT INTO exercises (
+          id, title, description, category, repetitions, duration_seconds, 
+          sets, rest_seconds, image_url, difficulty, instructions, tips, modifications,
+          asset, contraindications
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
         [
-          parseInt(exercise.id, 10), // Convert string ID to number for DB
-          exercise.name, // NEW: name -> OLD: title
+          parseInt(exercise.id, 10),
+          exercise.name,
           exercise.description,
           exercise.category,
-          exercise.reps ?? null, // NEW: reps -> OLD: repetitions
-          exercise.duration ?? null, // NEW: duration -> OLD: duration_seconds
-          'default.png', // NEW: no asset field -> use default
-          exercise.warnings?.join('; ') ?? null, // NEW: warnings[] -> OLD: contraindications
+          exercise.reps ?? null,
+          exercise.duration ?? null,
+          exercise.sets ?? null,
+          exercise.rest ?? null,
+          exercise.imageUrl ?? null,
+          exercise.difficulty ?? 'beginner',
+          JSON.stringify(exercise.instructions ?? []),
+          JSON.stringify(exercise.tips ?? []),
+          JSON.stringify(exercise.modifications ?? []),
+          'default.png',
+          exercise.warnings?.join('; ') ?? null,
         ]
       );
     }
