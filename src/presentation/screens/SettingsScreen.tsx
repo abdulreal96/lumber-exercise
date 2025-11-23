@@ -9,6 +9,7 @@ import {
   Alert,
 } from 'react-native';
 import { SettingsRepository } from '../../data/repositories/SettingsRepository';
+import { NotificationService } from '../../services/NotificationService';
 import { Settings } from '../../domain/models';
 
 export default function SettingsScreen() {
@@ -22,10 +23,26 @@ export default function SettingsScreen() {
   });
 
   const settingsRepo = new SettingsRepository();
+  const notificationService = new NotificationService();
 
   useEffect(() => {
     loadSettings();
+    initializeNotifications();
   }, []);
+
+  const initializeNotifications = async () => {
+    try {
+      const hasPermission = await notificationService.requestPermissions();
+      if (!hasPermission) {
+        Alert.alert(
+          'Notification Permission',
+          'Please enable notifications in settings to receive workout reminders.'
+        );
+      }
+    } catch (error) {
+      console.error('[SettingsScreen] Failed to request permissions:', error);
+    }
+  };
 
   const loadSettings = async () => {
     try {
@@ -44,7 +61,18 @@ export default function SettingsScreen() {
       const newSettings = { ...settings, ...updates };
       await settingsRepo.saveAll(newSettings);
       setSettings(newSettings);
-      console.log('[SettingsScreen] Settings updated successfully');
+      
+      // Schedule/update notifications whenever settings change
+      await notificationService.scheduleRoutineNotifications(newSettings);
+      console.log('[SettingsScreen] Settings and notifications updated successfully');
+      
+      if (newSettings.notifications_enabled) {
+        Alert.alert(
+          '✅ Notifications Scheduled',
+          `You'll receive reminders at:\n🌅 ${formatTime(newSettings.morning_time)} (Morning)\n🌙 ${formatTime(newSettings.evening_time)} (Evening)\n\nPlus 30-minute advance reminders!`,
+          [{ text: 'Got it!' }]
+        );
+      }
     } catch (error) {
       console.error('[SettingsScreen] Failed to save settings:', error);
       Alert.alert('Error', 'Failed to save settings');

@@ -23,6 +23,7 @@ export interface INotificationService {
   scheduleRoutineNotifications(settings: Settings): Promise<void>;
   cancelAllNotifications(): Promise<void>;
   scheduleSnooze(minutes: number): Promise<void>;
+  schedule30MinuteReminders(settings: Settings): Promise<void>;
 }
 
 export class NotificationService implements INotificationService {
@@ -69,6 +70,26 @@ export class NotificationService implements INotificationService {
       .split(':')
       .map(Number);
 
+    // Calculate 30 minutes before each routine
+    const morningReminderTime = this.subtractMinutes(morningHour, morningMinute, 30);
+    const eveningReminderTime = this.subtractMinutes(eveningHour, eveningMinute, 30);
+
+    // Schedule 30-minute advance reminder for morning
+    await Notifications.scheduleNotificationAsync({
+      content: {
+        title: '🔔 Morning Routine in 30 Minutes',
+        body: "Don't miss today's workout! You've been doing great - keep the streak alive! 💪",
+        sound: true,
+        priority: Notifications.AndroidNotificationPriority.HIGH,
+        data: { type: 'morning-reminder', routineId: 'morning-routine' },
+      },
+      trigger: {
+        type: Notifications.SchedulableTriggerInputTypes.DAILY,
+        hour: morningReminderTime.hour,
+        minute: morningReminderTime.minute,
+      },
+    });
+
     // Schedule morning notification
     await Notifications.scheduleNotificationAsync({
       content: {
@@ -82,6 +103,22 @@ export class NotificationService implements INotificationService {
         type: Notifications.SchedulableTriggerInputTypes.DAILY,
         hour: morningHour,
         minute: morningMinute,
+      },
+    });
+
+    // Schedule 30-minute advance reminder for evening
+    await Notifications.scheduleNotificationAsync({
+      content: {
+        title: '🔔 Evening Routine in 30 Minutes',
+        body: "Your evening workout is coming up! Stay consistent and strong! 🌟",
+        sound: true,
+        priority: Notifications.AndroidNotificationPriority.HIGH,
+        data: { type: 'evening-reminder', routineId: 'evening-routine' },
+      },
+      trigger: {
+        type: Notifications.SchedulableTriggerInputTypes.DAILY,
+        hour: eveningReminderTime.hour,
+        minute: eveningReminderTime.minute,
       },
     });
 
@@ -151,5 +188,30 @@ export class NotificationService implements INotificationService {
    */
   async getScheduledNotifications(): Promise<Notifications.NotificationRequest[]> {
     return await Notifications.getAllScheduledNotificationsAsync();
+  }
+
+  /**
+   * Helper to subtract minutes from a time (handles day rollover)
+   */
+  private subtractMinutes(hour: number, minute: number, minutesToSubtract: number): { hour: number; minute: number } {
+    let totalMinutes = hour * 60 + minute - minutesToSubtract;
+    
+    if (totalMinutes < 0) {
+      totalMinutes += 24 * 60; // Handle previous day
+    }
+    
+    return {
+      hour: Math.floor(totalMinutes / 60) % 24,
+      minute: totalMinutes % 60,
+    };
+  }
+
+  /**
+   * Schedule 30-minute advance reminders (for manual use if needed)
+   */
+  async schedule30MinuteReminders(settings: Settings): Promise<void> {
+    // This is now integrated into scheduleRoutineNotifications
+    // but kept as a separate method for flexibility
+    await this.scheduleRoutineNotifications(settings);
   }
 }
