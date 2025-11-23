@@ -6,7 +6,7 @@ import * as SQLite from 'expo-sqlite';
  */
 export class Database {
   private static instance: SQLite.SQLiteDatabase | null = null;
-  private static readonly DB_NAME = 'lumbar_exercise_v2.db';
+  private static readonly DB_NAME = 'lumbar_exercise_v3.db';
 
   private constructor() {}
 
@@ -40,6 +40,7 @@ export class Database {
         sets INTEGER,
         rest_seconds INTEGER,
         image_url TEXT,
+        video_id TEXT,
         difficulty TEXT,
         instructions TEXT,
         tips TEXT,
@@ -130,9 +131,9 @@ export class Database {
       await db.runAsync(
         `INSERT INTO exercises (
           id, title, description, category, repetitions, duration_seconds, 
-          sets, rest_seconds, image_url, difficulty, instructions, tips, modifications,
+          sets, rest_seconds, image_url, video_id, difficulty, instructions, tips, modifications,
           asset, contraindications
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
         [
           parseInt(exercise.id, 10),
           exercise.name,
@@ -143,6 +144,7 @@ export class Database {
           exercise.sets ?? null,
           exercise.rest ?? null,
           exercise.imageUrl ?? null,
+          exercise.videoId ?? null,
           exercise.difficulty ?? 'beginner',
           JSON.stringify(exercise.instructions ?? []),
           JSON.stringify(exercise.tips ?? []),

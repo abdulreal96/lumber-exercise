@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import { useRoute, useNavigation, RouteProp } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
+import ExerciseVideo from '../../components/ExerciseVideo';
 import { RootStackParamList } from '../../navigation/types';
 import { SessionService } from '../../services/SessionService';
 import { RoutineService } from '../../services/RoutineService';
@@ -181,13 +182,21 @@ export default function SessionScreen() {
 
       {/* Exercise Content - Scrollable */}
       <ScrollView style={styles.scrollContainer} contentContainerStyle={styles.exerciseContainer}>
-        {/* Exercise Image */}
-        {currentExercise.imageUrl && (
-          <Image
-            source={{ uri: currentExercise.imageUrl }}
-            style={styles.exerciseImage}
-            resizeMode="cover"
+        {/* Exercise Image or Video */}
+        {currentExercise.videoId ? (
+          <ExerciseVideo
+            videoId={currentExercise.videoId}
+            height={220}
+            borderRadius={16}
           />
+        ) : (
+          currentExercise.imageUrl && (
+            <Image
+              source={{ uri: currentExercise.imageUrl }}
+              style={styles.exerciseImage}
+              resizeMode="cover"
+            />
+          )
         )}
 
         {/* Exercise Header */}
@@ -287,7 +296,12 @@ export default function SessionScreen() {
             style={[styles.controlButton, styles.pauseButton]}
             onPress={handlePauseResume}
           >
-            <Ionicons name={isPaused ? 'play' : 'pause'} size={20} color="#fff" />
+            <Ionicons
+              name={isPaused ? 'play' : 'pause'}
+              size={20}
+              color="#fff"
+              style={styles.controlButtonIcon}
+            />
             <Text style={styles.controlButtonText}>
               {isPaused ? 'Resume' : 'Pause'}
             </Text>
@@ -298,7 +312,12 @@ export default function SessionScreen() {
           style={[styles.controlButton, styles.skipButton]}
           onPress={handleSkip}
         >
-          <Ionicons name="play-forward" size={20} color="#fff" />
+          <Ionicons
+            name="play-forward"
+            size={20}
+            color="#fff"
+            style={styles.controlButtonIcon}
+          />
           <Text style={styles.controlButtonText}>Skip</Text>
         </TouchableOpacity>
 
@@ -306,8 +325,13 @@ export default function SessionScreen() {
           style={[styles.controlButton, styles.completeButton]}
           onPress={handleComplete}
         >
-          <Ionicons name="checkmark" size={20} color="#fff" />
-          <Text style={styles.completeButtonText}>
+          <Ionicons
+            name="checkmark"
+            size={20}
+            color="#fff"
+            style={styles.controlButtonIcon}
+          />
+          <Text style={styles.controlButtonText}>
             {currentIndex === exercises.length - 1 ? 'Finish' : 'Complete'}
           </Text>
         </TouchableOpacity>
@@ -354,12 +378,12 @@ const styles = StyleSheet.create({
   },
   exerciseImage: {
     width: '100%',
-    height: 200,
-    borderRadius: 12,
+    height: 220,
+    borderRadius: 16,
     marginBottom: 16,
   },
   exerciseHeader: {
-    marginBottom: 12,
+    marginBottom: 16,
   },
   exerciseName: {
     fontSize: 24,
@@ -554,16 +578,19 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderTopColor: '#e0e0e0',
     flexDirection: 'row',
-    gap: 8,
+    gap: 12,
+    alignItems: 'stretch',
   },
   controlButton: {
-    flex: 1,
+    flexGrow: 1,
+    flexBasis: 0,
     flexDirection: 'row',
-    padding: 14,
-    borderRadius: 12,
+    paddingVertical: 14,
+    paddingHorizontal: 10,
+    borderRadius: 16,
     alignItems: 'center',
     justifyContent: 'center',
-    gap: 6,
+    minHeight: 54,
   },
   pauseButton: {
     backgroundColor: '#FF9800',
@@ -576,13 +603,12 @@ const styles = StyleSheet.create({
   },
   controlButtonText: {
     color: '#fff',
-    fontSize: 18,
-    fontWeight: 'bold',
+    fontSize: 15,
+    fontWeight: '600',
+    textAlign: 'center',
   },
-  completeButtonText: {
-    color: '#fff',
-    fontSize: 18,
-    fontWeight: 'bold',
+  controlButtonIcon: {
+    marginRight: 6,
   },
   completeContainer: {
     flex: 1,

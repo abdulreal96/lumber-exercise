@@ -8,6 +8,7 @@ import {
   ActivityIndicator,
   Image,
 } from 'react-native';
+import ExerciseVideo from '../../components/ExerciseVideo';
 import { useRoute, useNavigation, RouteProp } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import { RootStackParamList } from '../../navigation/types';
@@ -104,21 +105,25 @@ export default function ExerciseDetailScreen() {
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.content}>
-      {/* Exercise Image */}
-      {exercise.imageUrl && (
-        <View style={styles.imageContainer}>
-          <Image
-            source={{ uri: exercise.imageUrl }}
-            style={styles.exerciseImage}
-            resizeMode="cover"
-          />
-          <View style={styles.imageOverlay}>
-            <View style={[styles.difficultyBadge, { backgroundColor: getDifficultyColor(exercise.difficulty) }]}>
-              <Ionicons name="fitness" size={16} color="#fff" />
-              <Text style={styles.difficultyText}>{exercise.difficulty}</Text>
+      {/* Exercise Image or Video */}
+      {exercise.videoId ? (
+        <ExerciseVideo videoId={exercise.videoId} height={250} borderRadius={0} />
+      ) : (
+        exercise.imageUrl && (
+          <View style={styles.imageContainer}>
+            <Image
+              source={{ uri: exercise.imageUrl }}
+              style={styles.exerciseImage}
+              resizeMode="cover"
+            />
+            <View style={styles.imageOverlay}>
+              <View style={[styles.difficultyBadge, { backgroundColor: getDifficultyColor(exercise.difficulty) }]}>
+                <Ionicons name="fitness" size={16} color="#fff" />
+                <Text style={styles.difficultyText}>{exercise.difficulty}</Text>
+              </View>
             </View>
           </View>
-        </View>
+        )
       )}
 
       {/* Header Card */}

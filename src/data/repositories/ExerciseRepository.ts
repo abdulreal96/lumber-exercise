@@ -21,6 +21,7 @@ interface DbExercise {
   sets: number | null;
   rest_seconds: number | null;
   image_url: string | null;
+  video_id: string | null;
   difficulty: string | null;
   instructions: string | null;
   tips: string | null;
@@ -44,6 +45,7 @@ export class ExerciseRepository implements IExerciseRepository {
       sets: dbExercise.sets ?? undefined,
       rest: dbExercise.rest_seconds ?? undefined,
       imageUrl: dbExercise.image_url ?? undefined,
+      videoId: dbExercise.video_id ?? undefined,
       difficulty: (dbExercise.difficulty as 'beginner' | 'intermediate' | 'advanced') ?? 'beginner',
       targetMuscles: [],
       instructions: dbExercise.instructions ? JSON.parse(dbExercise.instructions) : [],
@@ -64,6 +66,7 @@ export class ExerciseRepository implements IExerciseRepository {
       sets: exercise.sets ?? null,
       rest_seconds: exercise.rest ?? null,
       image_url: exercise.imageUrl ?? null,
+      video_id: exercise.videoId ?? null,
       difficulty: exercise.difficulty ?? 'beginner',
       instructions: JSON.stringify(exercise.instructions ?? []),
       tips: JSON.stringify(exercise.tips ?? []),
@@ -99,9 +102,9 @@ export class ExerciseRepository implements IExerciseRepository {
     await this.db.runAsync(
       `INSERT INTO exercises (
         id, title, description, category, repetitions, duration_seconds, 
-        sets, rest_seconds, image_url, difficulty, instructions, tips, modifications,
+        sets, rest_seconds, image_url, video_id, difficulty, instructions, tips, modifications,
         asset, contraindications
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       [
         dbExercise.id!,
         dbExercise.title!,
@@ -112,6 +115,7 @@ export class ExerciseRepository implements IExerciseRepository {
         dbExercise.sets ?? null,
         dbExercise.rest_seconds ?? null,
         dbExercise.image_url ?? null,
+        dbExercise.video_id ?? null,
         dbExercise.difficulty ?? null,
         dbExercise.instructions ?? null,
         dbExercise.tips ?? null,
@@ -127,7 +131,7 @@ export class ExerciseRepository implements IExerciseRepository {
     await this.db.runAsync(
       `UPDATE exercises 
        SET title = ?, description = ?, category = ?, repetitions = ?, duration_seconds = ?,
-           sets = ?, rest_seconds = ?, image_url = ?, difficulty = ?, instructions = ?,
+           sets = ?, rest_seconds = ?, image_url = ?, video_id = ?, difficulty = ?, instructions = ?,
            tips = ?, modifications = ?, asset = ?, contraindications = ?
        WHERE id = ?`,
       [
@@ -139,6 +143,7 @@ export class ExerciseRepository implements IExerciseRepository {
         dbExercise.sets ?? null,
         dbExercise.rest_seconds ?? null,
         dbExercise.image_url ?? null,
+        dbExercise.video_id ?? null,
         dbExercise.difficulty ?? null,
         dbExercise.instructions ?? null,
         dbExercise.tips ?? null,

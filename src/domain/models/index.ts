@@ -33,20 +33,17 @@ export interface Exercise {
   description: string;
   category: ExerciseCategory;
   type: ExerciseType;
-  reps?: number; // For rep-based exercises
-  duration?: number; // For timed exercises (in seconds)
-  sets: number; // Number of sets to perform
-  restBetweenSets: number; // Rest in seconds between sets
+  reps?: number;
+  duration?: number; // in seconds
+  sets?: number;
+  rest?: number; // in seconds
+  imageUrl?: string;
+  videoId?: string; // YouTube Video ID
+  difficulty?: ExerciseDifficulty;
   targetMuscles: string[];
-  difficulty: ExerciseDifficulty;
-  equipment: string; // Equipment needed (e.g., 'none', 'wall', 'chair')
-  imageUrl: string; // URL to exercise demonstration image
-  instructions: string[]; // Step-by-step instructions
-  formCues: string[]; // Key points for proper form
-  contraindications: string[]; // When NOT to do this exercise
-  modifications: ExerciseModifications; // Easier and harder variations
-  // Deprecated fields (kept for backward compatibility)
-  tips?: string[];
+  instructions: string[];
+  tips: string[];
+  modifications?: string[];
   warnings?: string[];
 }
 
